@@ -4,6 +4,7 @@ from sys import platform
 
 JSON_FILE = 'Бары.json'
 
+
 def load_data(filepath):
     with open(filepath, mode='r', encoding="utf-8") as file:
         return json.load(file)
