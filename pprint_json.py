@@ -19,4 +19,3 @@ if __name__ == '__main__':
         win_unicode_console.enable()
     data = load_data('Бары.json')
     pretty_print_json(data)
-
