@@ -1,13 +1,37 @@
 # -*- coding: utf-8 -*-
+import argparse
 import json
-from sys import platform
+import os
+import sys
 
-JSON_FILE = 'Бары.json'
+
+def load_win_unicode_console():
+    if sys.platform == 'win32':
+        import win_unicode_console
+        win_unicode_console.enable()
 
 
-def load_data(filepath):
-    with open(filepath, mode='r', encoding="utf-8") as file:
-        return json.load(file)
+def get_named_argument(arg_name: str) -> str:
+    if len(sys.argv) > 1:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--' + arg_name)
+        return getattr(parser.parse_args(sys.argv[1:]), arg_name)
+    else:
+        print('Введите параметр в формате --%s Значение' % arg_name)
+        exit(1)
+
+
+def load_data(filepath: str):
+    if os.path.isfile(file_path):
+        try:
+            with open(filepath, mode='r', encoding="utf-8") as file:
+                return json.load(file)
+        except PermissionError:
+            print('У вас нет прав доступа к файлу')
+            exit(1)
+    else:
+        print('Файл не найден')
+        exit(1)
 
 
 def pretty_print_json(data):
@@ -16,8 +40,7 @@ def pretty_print_json(data):
 
 if __name__ == '__main__':
 
-    if platform == 'win32':
-        import win_unicode_console
-        win_unicode_console.enable()
-    data = load_data(JSON_FILE)
+    load_win_unicode_console()
+    file_path = get_named_argument('json')
+    data = load_data(file_path)
     pretty_print_json(data)
