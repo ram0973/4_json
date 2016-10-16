@@ -34,7 +34,9 @@ pip3 install -r requirements.txt
 ## Описание работы
 Пользователь вводит путь к json файлу как аргумент.
 Пример: 
-``` python pprint_json.py --json Бары.json
+```
+python pprint_json.py --json Бары.json
+```
 Скрипт печатает данные из файла с красивым форматированием. 
     
 ## Запуск
