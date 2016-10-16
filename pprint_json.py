@@ -13,16 +13,6 @@ def load_win_unicode_console():
         win_unicode_console.enable()
 
 
-def get_json_argument():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--json', help='Введите путь к файлу .json')
-    if parser.parse_args().json:
-        return parser.parse_args().json
-    else:
-        parser.print_help()
-        exit(1)
-
-
 def load_json_data(file_path: str):
     with open(file_path, mode='r', encoding="utf-8") as file:
         return json.load(file)
@@ -35,7 +25,16 @@ def pretty_print_json(data):
 if __name__ == '__main__':
 
     load_win_unicode_console()
-    json_file_path = get_json_argument()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--json', help='Введите путь к файлу .json')
+
+    json_file_path = parser.parse_args().json
+
+    if not json_file_path:
+        parser.print_help()
+        exit(1)
+
     try:
         json_data = load_json_data(json_file_path)
     except OSError as error:
