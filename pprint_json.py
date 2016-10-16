@@ -2,19 +2,15 @@
 import argparse
 import json
 import sys
-from colorama import Style, Fore
 
 
 def load_win_unicode_console():
     """
     Включаем правильное отображение unicode в консоли под MS Windows
-    и раскрашивание символов
     """
     if sys.platform == 'win32':
         import win_unicode_console
         win_unicode_console.enable()
-        from colorama import init
-        init()  # colorama
 
 
 def get_json_argument():
@@ -28,13 +24,8 @@ def get_json_argument():
 
 
 def load_json_data(file_path: str):
-    try:
-        with open(file_path, mode='r', encoding="utf-8") as file:
-                return json.load(file)
-    except OSError as error:
-        print(Fore.RED+Style.BRIGHT, 'Ошибка: ', error.strerror, ' в файле: ',
-              error.filename)
-        exit(1)
+    with open(file_path, mode='r', encoding="utf-8") as file:
+        return json.load(file)
 
 
 def pretty_print_json(data):
@@ -45,5 +36,9 @@ if __name__ == '__main__':
 
     load_win_unicode_console()
     json_file_path = get_json_argument()
-    json_data = load_json_data(json_file_path)
+    try:
+        json_data = load_json_data(json_file_path)
+    except OSError as error:
+        print('Ошибка: %s в файле: %s' % (error.strerror, error.filename))
+        exit(1)
     pretty_print_json(json_data)
