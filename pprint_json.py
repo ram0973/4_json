@@ -3,6 +3,8 @@ import argparse
 import json
 import sys
 
+TAB_INDENT_SIZE = 4
+
 
 def load_win_unicode_console():
     """
@@ -19,7 +21,7 @@ def load_json_data(file_path: str):
 
 
 def pretty_print_json(data):
-    print(json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False))
+    print(json.dumps(data, sort_keys=True, indent=TAB_INDENT_SIZE, ensure_ascii=False))
 
 
 if __name__ == '__main__':
