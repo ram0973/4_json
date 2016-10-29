@@ -21,7 +21,10 @@ def load_json_data(file_path: str):
 
 
 def pretty_print_json(data):
-    print(json.dumps(data, sort_keys=True, indent=TAB_INDENT_SIZE, ensure_ascii=False))
+    print(json.dumps(data,
+                     sort_keys=True,
+                     indent=TAB_INDENT_SIZE,
+                     ensure_ascii=False))
 
 
 if __name__ == '__main__':
